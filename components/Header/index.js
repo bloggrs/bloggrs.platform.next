@@ -24,7 +24,9 @@ export default function Header(){
                 </label>
                 <label className="full-screen" htmlFor="mobileMenu" />
                 <div className="col-2 logo">
-                    {blog.name}
+                    <Link href="/">
+                        {blog.name}
+                    </Link>
                 </div>
                 <nav className="col-10" id="topMenuNav">
                     <div className="navbar-links">

@@ -1,9 +1,11 @@
-
+import Link from "next/link";
 
 export default function SinglePost({ post }) {
     return (
         <div class="">
-            <h4>{post.title}</h4>
+            <Link href={`/posts/${post.slug}`}>
+                <h4 style={{ cursor: 'pointer' }}>{post.title}</h4>
+            </Link>
             <p>
                 {post.meta.content_text}
             </p>

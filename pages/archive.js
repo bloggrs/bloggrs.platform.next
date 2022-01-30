@@ -2,7 +2,9 @@ import PostList from "../components/PostList";
 import { getPosts } from "../lib/bloggrs-sdk";
 
 export async function getServerSideProps(context) {
-    const posts = await getPosts();
+    const posts = await getPosts({
+        status: "archived"
+    });
     return {
         props: {
             posts

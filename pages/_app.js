@@ -3,6 +3,7 @@ import Script from "next/script";
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { AuthProvider } from '../lib/auth';
+import "../styles/global.css";
 
 function MyApp({ Component, pageProps, blog, pages }) {
   return (
