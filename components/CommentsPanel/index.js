@@ -4,7 +4,7 @@ import { useState } from "react/cjs/react.development";
 import { createPostComment, getUserId } from "../../lib/bloggrs-sdk";
 
 
-export default function CommentsPanel({ comments, post }) {
+export default function CommentsPanel({ comments, post, pagination }) {
     const [ content, setContent ] = useState("")
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ newComments, setNewComments ] = useState([]);
@@ -16,7 +16,7 @@ export default function CommentsPanel({ comments, post }) {
         const { id: PostId } = post;
         const comment = await createPostComment({
             PostId, content
-        }) 
+        })
         addNewComment(comment);
         setIsSubmitting(false);
         setContent("");
@@ -32,7 +32,8 @@ export default function CommentsPanel({ comments, post }) {
             {allComments.length - 1 == i ? null : <br/>}
         </>
     ))
-
+    const { page, pageSize, count } = pagination;
+    const canLoadMore = (page * pageSize) < count;
     return (
         <div class="panel">
             <div class="panel-header">
@@ -62,7 +63,13 @@ export default function CommentsPanel({ comments, post }) {
                 </center>
             <div class="panel-body">
                 {Comments}
-                {!comments.length && <p>No comments to show..</p>}
+                {!allComments.length && <p>No comments to show..</p>}
+                {canLoadMore && <>
+                    <br/>
+                    <center style={{
+                        cursor: "pointer"
+                    }}>Load more</center>
+                </>}
             </div>
             <div class="panel-footer">
                 Powered by <Link href="https://bloggrs.com/"><a>bloggrs</a></Link>

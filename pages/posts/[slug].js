@@ -8,22 +8,30 @@ export async function getServerSideProps(context) {
     const { query } = context;
     const { slug } = query;
     const post = await getPost(slug);
-    const comments = await getPostComments(post.id);
+    const comments_result = await getPostComments(post.id);
     return {
         props: {
-            post, comments
+            post, comments_result
         }
     }
 }
 
-export default function SinglePost({ post, comments }){
+export default function SinglePost({ post, comments_result }){
+    const { comments, page, pageSize, count } = comments_result
+    console.log({ comments_result })
     return (
       <div className='flex-grid'>
         <div className='col-offset-2 col-5'>
           <SinglePostItem post={post} />
         </div>
         <div className="col-offset-2 col-5">
-            <CommentsPanel post={post} comments={comments}/>
+            <CommentsPanel 
+                post={post}
+                comments={comments}
+                pagination={{
+                    page, pageSize, count
+                }}
+            />
         </div>
       </div>
     )
