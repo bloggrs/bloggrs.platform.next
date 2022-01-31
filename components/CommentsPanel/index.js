@@ -2,9 +2,10 @@ import SingleComment from "../SingleComment";
 import Link from "next/link";
 import { useState } from "react/cjs/react.development";
 import { createPostComment, getUserId } from "../../lib/bloggrs-sdk";
+import { toast } from "react-toastify";
 
 
-export default function CommentsPanel({ comments, post, pagination }) {
+export default function CommentsPanel({ comments, post, pagination, onLoadMore }) {
     const [ content, setContent ] = useState("")
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ newComments, setNewComments ] = useState([]);
@@ -37,18 +38,18 @@ export default function CommentsPanel({ comments, post, pagination }) {
     return (
         <div class="panel">
             <div class="panel-header">
-                Comments {"  "} ({allComments.length})
+                Comments {"  "} ({(count + newComments.length)})
             </div>
                 <br/><br/>
                 <center>
-                    <form disabled={isSubmitting} onSubmit={onSubmitHandler}>
+                    <form disabled={isSubmitting || !content} onSubmit={onSubmitHandler}>
                         <input 
                             value={content}  
                             onChange={e => setContent(e.target.value)}    
                             placeholder="Type your comment here"
                         />
                         <button
-                            disabled={isSubmitting}
+                            disabled={isSubmitting || !content}
                             type="submit" 
                             className="btn"
                             style={{
@@ -66,7 +67,7 @@ export default function CommentsPanel({ comments, post, pagination }) {
                 {!allComments.length && <p>No comments to show..</p>}
                 {canLoadMore && <>
                     <br/>
-                    <center style={{
+                    <center onClick={onLoadMore} style={{
                         cursor: "pointer"
                     }}>Load more</center>
                 </>}

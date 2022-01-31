@@ -4,8 +4,10 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { AuthProvider } from '../lib/auth';
 import "../styles/global.css";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
-function MyApp({ Component, pageProps, blog, pages }) {
+function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
       <Script 
@@ -14,7 +16,7 @@ function MyApp({ Component, pageProps, blog, pages }) {
       />
       <Head>
         <link rel="stylesheet" href="/purecssframework.css"/>
-        <title>Create Next Appsddsa</title>
+        <title>Create Next Apps</title>
       </Head>
       <>
         <Header/>
@@ -23,8 +25,10 @@ function MyApp({ Component, pageProps, blog, pages }) {
           </div>
         <Footer/>
       </>
+      <ToastContainer/>
     </AuthProvider>
   )
 }
+
 
 export default MyApp
