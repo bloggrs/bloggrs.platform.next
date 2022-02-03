@@ -1,4 +1,10 @@
+import { getPosts } from "../../lib/bloggrs-sdk";
 import SinglePost from "../SinglePost";
+
+PostList.prototype.getComponentProps = async () => {
+    const posts = await getPosts();
+    return { posts }
+}
 
 
 export default function PostList({ posts, title }) {

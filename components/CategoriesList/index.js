@@ -1,5 +1,10 @@
 import Link from "next/link";
+import { getCategories } from "../../lib/bloggrs-sdk";
 
+CategoriesList.prototype.getComponentProps = async () => {
+    const categories = await getCategories();
+    return { categories }
+}
 
 export default function CategoriesList({ categories, selected }) {
     return (

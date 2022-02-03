@@ -18,6 +18,8 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ posts, categories }) {
+  console.log("HOME")
+  return "DSADA"
   return (
     <div className='flex-grid'>
       <div className='col-offset-2 col-4'>

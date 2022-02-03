@@ -2,7 +2,7 @@
   "name": "bloggrs.front.next",
   "private": true,
   "scripts": {
-    "dev": "next -p 8081",
+    "dev": "next -p 8080",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
