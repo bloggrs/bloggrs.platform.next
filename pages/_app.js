@@ -18,19 +18,21 @@ class MyApp extends React.Component {
     children: []
   }
   loadChildren = async () => {
+    const blocks = await parseBlocks(this.props.blocks)
+    console.log(blocks)
     this.setState({
-      children: await parseBlocks(this.props.blocks)
+      children: blocks
     })
   }
   componentDidMount() {
-    alert(2)
     this.loadChildren();
   }
   render() {
     const { children } = this.state;
-    console.log({ children })
+    const { Component, pageProps } = this.props;
     return (
       <AuthProvider>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
         <Script 
           src="http://localhost:4444/dist/bloggrs.umd.js"
           strategy="beforeInteractive"
@@ -66,9 +68,6 @@ MyApp.getInitialProps = async (appContext) => {
   // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext);
   await bloggrs.initPromise;
-  console.log({
-    'bloggrs.initPromise': bloggrs.initPromise
-  })
   const blog = bloggrs.blog;
   const { blocks } = blog;
   // const children = await parseBlocks(blocks);
