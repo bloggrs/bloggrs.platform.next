@@ -4,7 +4,7 @@ const useBloggrs = () => {
     const [ bloggrs, setBloggrs ] = useState(null);
 
     useEffect(() => {
-        const bloggrs_instance = new window.bloggrs.Bloggrs("42fe1d47-e993-4d47-92ee-340552c1c243");
+        const bloggrs_instance = window.__bloggrs__;
         setBloggrs(bloggrs_instance);
     }, [])
     return bloggrs;

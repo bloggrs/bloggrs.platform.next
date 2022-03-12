@@ -23,12 +23,12 @@ class MyApp extends React.Component {
     })
   }
   componentDidMount() {
-    alert(2)
     this.loadChildren();
   }
   render() {
     const { children } = this.state;
-    console.log({ children })
+    const { Component, pageProps } = this.props;
+
     return (
       <AuthProvider>
         <Script 
@@ -40,8 +40,8 @@ class MyApp extends React.Component {
           <title>Create Next Apps</title>
         </Head>
 
-        { children }
-        {/* <Script 
+        {/* { children } */}
+        <Script
           src="http://localhost:4444/dist/bloggrs.umd.js"
           strategy="beforeInteractive"
         />
@@ -55,7 +55,7 @@ class MyApp extends React.Component {
               <Component {...pageProps} />
             </div>
           <Footer/>
-        </> */}
+        </> 
         <ToastContainer/>
       </AuthProvider>
     )
@@ -70,7 +70,7 @@ MyApp.getInitialProps = async (appContext) => {
     'bloggrs.initPromise': bloggrs.initPromise
   })
   const blog = bloggrs.blog;
-  const { blocks } = blog;
+  const { blocks } = blog || { blocks: [] };
   // const children = await parseBlocks(blocks);
   // console.log({ chhhhhh: children })
   return { ...appProps, blocks }
