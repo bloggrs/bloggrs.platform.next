@@ -1,15 +1,23 @@
 import Link from "next/link";
 import styles from "./SinglePost.module.css";
 
-export default function SinglePost({ post }) {
+export default function SinglePost({ post, html_mode }) {
     return (
         <div class="">
             <Link href={`/posts/${post.slug}`}>
                 <h4 style={{ cursor: 'pointer' }}>{post.title}</h4>
             </Link>
-            <p>
-                {post.meta.content_text}
-            </p>
+            {
+                !html_mode 
+                    ? <p>{post.meta.content_text}</p>
+                    : (
+                        <div style={{
+                            lineHeight: 1
+                        }} dangerouslySetInnerHTML={{
+                            __html: post.html_content
+                        }}></div>
+                    )
+            }
             <div style={{ display: "grid" }}>
                 <div style={{ display: 'inline-flex'}}>
                     <p className={styles.p_likes}>{post.meta.likes_count} likes</p> 

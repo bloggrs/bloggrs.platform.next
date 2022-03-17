@@ -4,12 +4,26 @@ import { getBlogHeaderWidgetData } from "../../lib/bloggrs-sdk";
 
 export default function Header(){
     const [ blog, setBlog ] = useState(null);
-    const [ pages, setPages ] = useState(null);
+    
+    const staticPages = [
+        {
+            id: 1,
+            slug: "/home",
+            name: "Home"
+        },
+        {
+            id: 2, 
+            slug: "/archive",
+            name: "Archive"
+        },
+    ]
+
+    const [ pages, setPages ] = useState(staticPages);
 
     useEffect(async () => {
         const { blog, pages } = await getBlogHeaderWidgetData();
         setBlog(blog);
-        setPages(pages);
+        setPages(staticPages);
     },[])
     if (!blog || !pages) return <center>header loading</center>
     return (

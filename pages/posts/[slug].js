@@ -41,7 +41,7 @@ export default function SinglePost({ post, _comments_result }){
     return (
       <div className='flex-grid'>
         <div className='col-offset-2 col-5'>
-          <SinglePostItem post={post} />
+          <SinglePostItem post={post} html_mode={true} />
         </div>
         <div className="col-offset-2 col-5">
             <CommentsPanel 
