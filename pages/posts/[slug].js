@@ -3,7 +3,7 @@ import { getPost, getPostComments } from "../../lib/bloggrs-sdk";
 import SinglePostItem from "../../components/SinglePost";
 import SingleComment from "../../components/SingleComment";
 import CommentsPanel from "../../components/CommentsPanel";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 
 export async function getServerSideProps(context) {
     const { query } = context;
