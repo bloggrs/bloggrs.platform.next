@@ -9,8 +9,8 @@ import { ToastContainer } from 'react-toastify';
 import bloggrs from '../lib/bloggrs-sdk';
 import parseBlocks from '../lib/bloggrs-ui';
 import App from 'next/app';
-import { useState } from 'react/cjs/react.development';
-import { useEffect } from 'react/cjs/react.production.min';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import React from "react";
 
 class MyApp extends React.Component {

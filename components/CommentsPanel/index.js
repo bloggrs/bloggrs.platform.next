@@ -1,6 +1,6 @@
 import SingleComment from "../SingleComment";
 import Link from "next/link";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import { createPostComment, getUserId } from "../../lib/bloggrs-sdk";
 import { toast } from "react-toastify";
 

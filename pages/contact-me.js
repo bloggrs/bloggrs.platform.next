@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import { createBlogContact } from "../lib/bloggrs-sdk";
 import * as yup from 'yup';
 
