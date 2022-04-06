@@ -7,33 +7,36 @@ import { useEffect, useRef, useState } from "react";
 const edjsHTML = require("editorjs-html");
 const edjsParser = edjsHTML();
 
-console.log({ edjsParser })
+let Embed, Table, List, Warning, Code, LinkTool, Image, Raw, Header, Quote, Marker, CheckList, Delimiter, InlineCode, SimpleImage, createReactEditorJS;
+
+if (typeof window !== "undefined") {
+    Embed = require('@editorjs/embed');
+    Table = require('@editorjs/table');
+    List = require('@editorjs/list');
+    Warning = require('@editorjs/warning');
+    Code = require('@editorjs/code');
+    LinkTool = require('@editorjs/link');
+    Image = require('@editorjs/image');
+    Raw = require('@editorjs/raw');
+    Header = require('@editorjs/header');
+    Quote = require('@editorjs/quote');
+    Marker = require('@editorjs/marker');
+    CheckList = require('@editorjs/checklist');
+    Delimiter = require('@editorjs/delimiter');
+    InlineCode = require('@editorjs/inline-code');
+    SimpleImage = require('@editorjs/simple-image');
+    createReactEditorJS = require("react-editor-js").createReactEditorJS
+}
+
 export default function SinglePost({ post, html_mode }) {
     if (post.id < 5) return "OK"
     const [ editor, setEditor ] = useState(null);
     const holder = useRef(null);
-    console.log({ post })
     // const html = edjsParser.parseStrict(post.html_content);
 
     useEffect(() => {
-        if (typeof window === "undefined") return;
-        const Embed =  require('@editorjs/embed');
-        const Table =  require('@editorjs/table');
-        const List =  require('@editorjs/list');
-        const Warning =  require('@editorjs/warning');
-        const Code =  require('@editorjs/code');
-        const LinkTool =  require('@editorjs/link');
-        const Image =  require('@editorjs/image');
-        const Raw =  require('@editorjs/raw');
-        const Header =  require('@editorjs/header');
-        const Quote =  require('@editorjs/quote');
-        const Marker =  require('@editorjs/marker');
-        const CheckList =  require('@editorjs/checklist');
-        const Delimiter =  require('@editorjs/delimiter');
-        const InlineCode =  require('@editorjs/inline-code');
-        const SimpleImage =  require('@editorjs/simple-image');
-        
-        const EDITOR_JS_TOOLS = {
+        if (typeof window === "undefined") return;        
+        let EDITOR_JS_TOOLS = {
             embed: Embed,
             table: Table,
             marker: Marker,
@@ -49,11 +52,9 @@ export default function SinglePost({ post, html_mode }) {
             delimiter: Delimiter,
             inlineCode: InlineCode,
             simpleImage: SimpleImage,
-        };
-        const { createReactEditorJS } = require("react-editor-js")
+        }
         const ReactEditorJS = createReactEditorJS({ readOnly: true });
-
-        console.log({ post });
+        console.log({ EDITOR_JS_TOOLS })
         const editor = <ReactEditorJS
             defaultValue={JSON.parse(post.html_content)}
             tools={EDITOR_JS_TOOLS}
@@ -61,6 +62,20 @@ export default function SinglePost({ post, html_mode }) {
         />
         setEditor(editor)
     }, [ holder ])
+    
+    useEffect(() => {
+        setTimeout(() => {
+            const textarea_elements = document.getElementsByClassName("ce-code__textarea cdx-input");
+            for (let el of textarea_elements) {
+                const height = el.scrollHeight + ( el.scrollHeight * 0.05);
+                el.style.height = `${height}px`
+                el.parentElement.style.height = `${height}px`
+                el.parentElement.style.marginTop = "20px"
+                el.parentElement.style.marginBottom = "20px"
+                el.parentElement.parentElement.style.height = `${height}px`
+            }
+        }, 1500)
+    }, [ editor ])
     
     if (!editor) "editor loading"
     return (
