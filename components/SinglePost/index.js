@@ -29,7 +29,10 @@ if (typeof window !== "undefined") {
 }
 
 export default function SinglePost({ post, html_mode }) {
-    if (post.id < 5) return "OK"
+    if (post.id < 5) {
+        console.warn(`post<${post.id}> not rendered`)
+        return null
+    }
     const [ editor, setEditor ] = useState(null);
     const holder = useRef(null);
     // const html = edjsParser.parseStrict(post.html_content);
@@ -54,7 +57,11 @@ export default function SinglePost({ post, html_mode }) {
             simpleImage: SimpleImage,
         }
         const ReactEditorJS = createReactEditorJS({ readOnly: true });
-        console.log({ EDITOR_JS_TOOLS })
+        try {
+            JSON.parse(post.html_content)
+        } catch(err) {
+            return;
+        }
         const editor = <ReactEditorJS
             defaultValue={JSON.parse(post.html_content)}
             tools={EDITOR_JS_TOOLS}
@@ -81,7 +88,9 @@ export default function SinglePost({ post, html_mode }) {
     return (
         <div class="">
             <Link href={`/posts/${post.slug}`}>
-                <h4 style={{ cursor: 'pointer' }}>{post.title}</h4>
+                <h4 style={{ cursor: 'pointer' }} dangerouslySetInnerHTML={{
+                    __html: post.title
+                }}></h4>
             </Link>
             {
                 !html_mode

@@ -66,9 +66,6 @@ MyApp.getInitialProps = async (appContext) => {
   // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext);
   await bloggrs.initPromise;
-  console.log({
-    'bloggrs.initPromise': bloggrs.initPromise
-  })
   const blog = bloggrs.blog;
   const { blocks } = blog || { blocks: [] };
   // const children = await parseBlocks(blocks);
