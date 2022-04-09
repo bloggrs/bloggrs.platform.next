@@ -8,22 +8,33 @@ import { useState } from "react";
 export async function getServerSideProps(context) {
     const { query } = context;
     const { slug } = query;
-    const post = await getPost(slug);
-    const comments_result = await getPostComments(post.id);
+    let post = null, comments_result = null;
+    try {
+        post = await getPost(slug);
+    } catch(err) { 
+        if (err.message !== "Not Found") throw err;
+    }
+    if (post) comments_result = await getPostComments(post.id);
     return {
         props: {
-            post, _comments_result: comments_result
+            post, _comments_result: comments_result, not_found: !Boolean(post)
         }
     }
 }
 
-export default function SinglePost({ post, _comments_result }){
-    // const { comments, page, pageSize, count } = comments_result
-    
+export default function SinglePost({ post, _comments_result, not_found }){
+    if (not_found) {
+        return (
+            <center style={{ marginTop: "2rem", marginBottom: "2rem" }}>
+                404 not found
+            </center>
+        )
+    }
+
     const [ comments_result, setCommentsResult ] = useState(_comments_result);
-    
+
     const { comments, page, pageSize, count } = comments_result
-    
+
     const onLoadMore = async e => {
         e.preventDefault();
         const new_comments_result = await getPostComments(post.id, {

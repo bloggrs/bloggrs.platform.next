@@ -64,3 +64,9 @@ section header {
     padding-top: 0;
     width: 100%;
 }
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
