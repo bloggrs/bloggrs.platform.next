@@ -44,14 +44,14 @@ export default function Header(){
                 </div>
                 <nav className="col-10" id="topMenuNav">
                     <div className="navbar-links">
-                    <input type="radio" className="hide" name="navbar-menu" id="navbarDropHide" defaultChecked />
-                    {
-                        pages.map(page => (
-                            <Link href={`/${page.slug}`}>
-                                <a >{page.name}</a>
-                            </Link>
-                        ))
-                    }
+                        <input type="radio" className="hide" name="navbar-menu" id="navbarDropHide" defaultChecked />
+                        {
+                            pages.map(page => (
+                                <Link href={`/${page.slug}`}>
+                                    <a >{page.name}</a>
+                                </Link>
+                            ))
+                        }
                     </div>
                 </nav>
                 </div>
