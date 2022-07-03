@@ -85,6 +85,11 @@ export default function SinglePost({ post, html_mode }) {
         }, 1500)
     }, [ editor ])
     
+    const onPostLike = e => {
+        e.preventDefault();
+        // likePostComment
+    }
+
     if (!editor) "editor loading"
     return (
         <div class="">
@@ -100,7 +105,7 @@ export default function SinglePost({ post, html_mode }) {
             }
             <div style={{ display: "grid" }}>
                 <div style={{ display: 'inline-flex'}}>
-                    <p className={styles.p_likes}>{post.meta.likes_count} likes</p> 
+                    <p onClick={onPostLike} className={styles.p_likes}>{post.meta.likes_count} likes</p> 
                     <p>&nbsp;&nbsp; | &nbsp;&nbsp;</p>
                     <p>{post.meta.comments_count} comments</p>
                     <p>&nbsp;&nbsp; | &nbsp;&nbsp;</p>
