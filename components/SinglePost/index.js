@@ -29,10 +29,10 @@ if (typeof window !== "undefined") {
 }
 
 export default function SinglePost({ post, html_mode }) {
-    if (post.id < 5) {
-        console.warn(`post<${post.id}> not rendered`)
-        return null
-    }
+    // if (post.id < 5) {
+    //     console.warn(`post<${post.id}> not rendered`)
+    //     return null
+    // }
     const [ editor, setEditor ] = useState(null);
     const holder = useRef(null);
     // const html = edjsParser.parseStrict(post.html_content);
@@ -57,6 +57,7 @@ export default function SinglePost({ post, html_mode }) {
             simpleImage: SimpleImage,
         }
         const ReactEditorJS = createReactEditorJS({ readOnly: true });
+        console.log({ EDITOR_JS_TOOLS, post })
         try {
             JSON.parse(post.html_content)
         } catch(err) {
